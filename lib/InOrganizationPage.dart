@@ -10,13 +10,34 @@ class InOrganizationPage extends StatefulWidget {
 }
 
 class _InOrganizationPageState extends State<InOrganizationPage> {
-  Completer<GoogleMapController> _controller = Completer();
-  // static const LatLng _center = const LatLng(51.2190231, 51.3894742);
+  Set<Marker> _createMarker() {
+    return {
+      Marker(
+          markerId: MarkerId("marker_1"),
+          position: _kMapCenter,
+          infoWindow: InfoWindow(title: 'Marker 1'),
+          rotation: 90),
+      Marker(
+        markerId: MarkerId("marker_2"),
+        position: LatLng(18.997962200185533, 72.8379758747611),
+      ),
+    };
+  }
 
-  CameraPosition organizationPosition =
-      CameraPosition(target: LatLng(51.2454558, 51.4245345), zoom: 16);
-  CameraPosition myPosition =
-      CameraPosition(target: LatLng(51.2130476, 51.3740634), zoom: 19);
+  static final LatLng _kMapCenter =
+      LatLng(19.018255973653343, 72.84793849278007);
+
+  static final CameraPosition _kInitialPosition =
+      CameraPosition(target: _kMapCenter, zoom: 11.0, tilt: 0, bearing: 0);
+
+  late GoogleMapController _controller;
+
+  Future<void> onMapCreated(GoogleMapController controller) async {
+    _controller = controller;
+    String value = await DefaultAssetBundle.of(context)
+        .loadString('assets/map_style.json');
+    _controller.setMapStyle(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +45,7 @@ class _InOrganizationPageState extends State<InOrganizationPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Каталог организаций',
+          'Организация',
           style: TextStyle(color: Colors.white),
         ),
         flexibleSpace: Container(
@@ -40,33 +61,37 @@ class _InOrganizationPageState extends State<InOrganizationPage> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            // height: double.infinity,
-            child: Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: organizationPosition,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                ),
-              ],
+      body: Container(
+        child: Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition: _kInitialPosition,
+              onMapCreated: onMapCreated,
+              zoomControlsEnabled: false,
+              markers: _createMarker(),
             ),
-          ),
-          Container(
-            child: Text(
-              'Magazine Aida',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-              ),
-            ),
-          ),
-        ],
+            // Container(
+            //   child: Align(
+            //     alignment: Alignment.center,
+            //     child: Icon(
+            //       Icons.location_on_outlined,
+            //       size: 60,
+            //       color: Colors.green,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
+      // Container(
+      //   child: Text(
+      //     'Magazine Aida',
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //       fontSize: 25,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

@@ -51,6 +51,7 @@ flutter:
     - lib/images/avatar.png
     - lib/images/default.png
     - lib/images/default.jpeg
+    - lib/assets/map_style.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

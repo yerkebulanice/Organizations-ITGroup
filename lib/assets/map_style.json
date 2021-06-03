@@ -1,0 +1,10 @@
+[
+    {
+        "featureType": "administrative.country",
+        "stylers": [
+            {
+                "color": "#ffec3d"
+            }
+        ]
+    }
+]
