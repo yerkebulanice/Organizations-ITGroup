@@ -50,17 +50,13 @@ class _InOrganizationPageState extends State<InOrganizationPage>
 
   TabBar _getTabBar() {
     return TabBar(
-      onTap: (index) {
-        if (index == 0) {
-          setState(() {
-            height = 493;
-          });
-        } else if (index == 1) {
-          setState(() {
-            height = 550;
-          });
-        }
-      },
+      // onTap: (index) {
+      //   if (index == 0) {
+      //     setState(() {
+      //       height = 490;
+      //     });
+      //   }
+      // },
       unselectedLabelColor: Colors.black,
       labelColor: Colors.orange[900],
       unselectedLabelStyle: TextStyle(
@@ -90,17 +86,17 @@ class _InOrganizationPageState extends State<InOrganizationPage>
     );
   }
 
-  TabBarView _getTabBarView(tabs) {
-    return TabBarView(
-      children: tabs,
-      controller: tabController,
-    );
-  }
+  // TabBarView _getTabBarView(tabs) {
+  //   return TabBarView(
+  //     children: tabs,
+  //     controller: tabController,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -149,42 +145,38 @@ class _InOrganizationPageState extends State<InOrganizationPage>
           ),
           FocusNameOfOrg(screenWidth: screenWidth),
           Container(
-            child: Column(
-              children: <Widget>[
+            height: 50,
+            padding: EdgeInsets.only(
+              left: 50,
+              right: 50,
+            ),
+            child: _getTabBar(),
+          ),
+          Container(
+            height: 763,
+            child: TabBarView(
+              controller: tabController,
+              physics: ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              children: [
                 Container(
-                  height: 50,
-                  padding: EdgeInsets.only(
-                    left: 50,
-                    right: 50,
-                  ),
-                  child: _getTabBar(),
-                ),
-                Container(
-                  height: screenHeight,
-                  child: _getTabBarView(
-                    <Widget>[
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AddressOfOrganization(),
-                            DividerBetween(),
-                            TimeWorking(),
-                            DividerBetween(),
-                            CallButton(),
-                            DividerBetween(),
-                            ShareOnSocialMedia(),
-                            DividerBetween(),
-                            TypeOfOrganization(),
-                            DividerBetween(),
-                            AddOrganizationButton(),
-                          ],
-                        ),
-                      ), // 1 page of tab bar
-                      Otzivi(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AddressOfOrganization(),
+                      DividerBetween(),
+                      TimeWorking(),
+                      DividerBetween(),
+                      CallButton(),
+                      DividerBetween(),
+                      ShareOnSocialMedia(),
+                      DividerBetween(),
+                      TypeOfOrganization(),
+                      DividerBetween(),
+                      AddOrganizationButton(),
                     ],
                   ),
-                ),
+                ), // 1 page of tab bar
+                Otzivi(),
               ],
             ),
           ),
@@ -202,6 +194,7 @@ class Otzivi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: 763,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -217,7 +210,7 @@ class Otzivi extends StatelessWidget {
           CommentWidget(
             comment: 'Очень понравилось обслуживание!',
           ),
-          Divider(),
+          DividerBetween(),
           CommentWidget(
             comment:
                 'Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание! Очень понравилось обслуживание!',
@@ -797,323 +790,3 @@ class LargeIconStar extends StatelessWidget {
     );
   }
 }
-
-// Container(
-//                       // padding: EdgeInsets.fromLTRB(18, 12, 18, 12),
-//                       // color: Colors.teal,
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Container(
-//                             padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-//                             margin: EdgeInsets.fromLTRB(18, 12, 18, 12),
-//                             child: Column(
-//                               crossAxisAlignment: CrossAxisAlignment.center,
-//                               children: [
-//                                 Container(
-//                                   padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-//                                   child: Row(
-//                                     mainAxisAlignment:
-//                                         MainAxisAlignment.spaceBetween,
-//                                     children: [
-//                                       InkWell(
-//                                         onTap: () {},
-//                                         child: Icon(
-//                                           Icons.star_outline,
-//                                           color: Colors.orange[900],
-//                                           size: 42,
-//                                         ),
-//                                       ),
-//                                       InkWell(
-//                                         onTap: () {},
-//                                         child: Icon(
-//                                           Icons.star_outline,
-//                                           color: Colors.orange[900],
-//                                           size: 42,
-//                                         ),
-//                                       ),
-//                                       InkWell(
-//                                         onTap: () {},
-//                                         child: Icon(
-//                                           Icons.star_outline,
-//                                           color: Colors.orange[900],
-//                                           size: 42,
-//                                         ),
-//                                       ),
-//                                       InkWell(
-//                                         onTap: () {},
-//                                         child: Icon(
-//                                           Icons.star_outline,
-//                                           color: Colors.orange[900],
-//                                           size: 42,
-//                                         ),
-//                                       ),
-//                                       InkWell(
-//                                         onTap: () {},
-//                                         child: Icon(
-//                                           Icons.star_outline,
-//                                           color: Colors.orange[900],
-//                                           size: 42,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ),
-//                                 SizedBox(
-//                                   height: 12,
-//                                 ),
-//                                 Text(
-//                                   'Были здесь? Напишите отзыв',
-//                                   style: TextStyle(
-//                                     color: Colors.black,
-//                                     fontSize: 18,
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                           Divider(
-//                             color: Colors.grey[700],
-//                             height: 30,
-//                           ),
-//                           Container(
-//                             margin: EdgeInsets.fromLTRB(18, 0, 18, 0),
-//                             child: Row(
-//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                               children: [
-//                                 Row(
-//                                   children: [
-//                                     Text(
-//                                       '5.0',
-//                                       style: TextStyle(
-//                                         fontSize: 16,
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       width: 10,
-//                                     ),
-//                                     Row(
-//                                       children: [
-//                                         Icon(
-//                                           Icons.star,
-//                                           size: 20,
-//                                           color: Colors.orange[900],
-//                                         ),
-//                                         Icon(
-//                                           Icons.star,
-//                                           size: 20,
-//                                           color: Colors.orange[900],
-//                                         ),
-//                                         Icon(
-//                                           Icons.star,
-//                                           size: 20,
-//                                           color: Colors.orange[900],
-//                                         ),
-//                                         Icon(
-//                                           Icons.star,
-//                                           size: 20,
-//                                           color: Colors.orange[900],
-//                                         ),
-//                                         Icon(
-//                                           Icons.star,
-//                                           size: 20,
-//                                           color: Colors.orange[900],
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 Text(
-//                                   '1 отзыв',
-//                                   style: TextStyle(
-//                                     fontSize: 16,
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                           Divider(
-//                             color: Colors.grey[700],
-//                             height: 30,
-//                           ),
-//                           Container(
-//                             margin: EdgeInsets.fromLTRB(12, 8, 12, 8),
-//                             child: Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Row(
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   mainAxisAlignment: MainAxisAlignment.start,
-//                                   children: [
-//                                     Image(
-//                                       image:
-//                                           AssetImage('lib/images/avatar.png'),
-//                                       width: 50,
-//                                       fit: BoxFit.fill,
-//                                       height: 50,
-//                                     ),
-//                                     SizedBox(
-//                                       width: 15,
-//                                     ),
-//                                     Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: [
-//                                         Text(
-//                                           'Майра Мангитаева',
-//                                           style: TextStyle(
-//                                             color: Colors.blue,
-//                                             fontSize: 18,
-//                                           ),
-//                                         ),
-//                                         Text(
-//                                           '4 отзыва',
-//                                           style: TextStyle(
-//                                             color: Colors.grey,
-//                                             fontSize: 14,
-//                                           ),
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 SizedBox(
-//                                   height: 10,
-//                                 ),
-//                                 Container(
-//                                   child: Text(
-//                                     'Очень понравилось обслуживание!',
-//                                     style: TextStyle(
-//                                       color: Colors.black,
-//                                       fontSize: 16,
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(
-//                                   height: 4,
-//                                 ),
-//                                 Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: [
-//                                     Text(
-//                                       '20 августа 2020',
-//                                       style: TextStyle(
-//                                         color: Colors.grey,
-//                                       ),
-//                                     ),
-//                                     InkWell(
-//                                       child: Row(
-//                                         children: [
-//                                           Icon(
-//                                             Icons.thumb_up_alt_outlined,
-//                                             size: 18,
-//                                           ),
-//                                           SizedBox(
-//                                             width: 4,
-//                                           ),
-//                                           Text('0'),
-//                                         ],
-//                                       ),
-//                                     )
-//                                   ],
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                           Divider(
-//                             color: Colors.grey[700],
-//                             height: 30,
-//                           ),
-//                           Container(
-//                             margin: EdgeInsets.fromLTRB(12, 8, 12, 8),
-//                             child: Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Row(
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   mainAxisAlignment: MainAxisAlignment.start,
-//                                   children: [
-//                                     Image(
-//                                       image:
-//                                           AssetImage('lib/images/avatar.png'),
-//                                       width: 50,
-//                                       fit: BoxFit.fill,
-//                                       height: 50,
-//                                     ),
-//                                     SizedBox(
-//                                       width: 15,
-//                                     ),
-//                                     Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: [
-//                                         Text(
-//                                           'Майра Мангитаева',
-//                                           style: TextStyle(
-//                                             color: Colors.blue,
-//                                             fontSize: 18,
-//                                           ),
-//                                         ),
-//                                         Text(
-//                                           '4 отзыва',
-//                                           style: TextStyle(
-//                                             color: Colors.grey,
-//                                             fontSize: 14,
-//                                           ),
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 SizedBox(
-//                                   height: 10,
-//                                 ),
-//                                 Container(
-//                                   child: Text(
-//                                     'Очень понравилось обслуживание! Очень понравилось обслуживание!Очень понравилось обслуживание! Очень понравилось обслуживание! ',
-//                                     style: TextStyle(
-//                                       color: Colors.black,
-//                                       fontSize: 16,
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(
-//                                   height: 4,
-//                                 ),
-//                                 Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: [
-//                                     Text(
-//                                       '20 августа 2020',
-//                                       style: TextStyle(
-//                                         color: Colors.grey,
-//                                       ),
-//                                     ),
-//                                     InkWell(
-//                                       child: Row(
-//                                         children: [
-//                                           Icon(
-//                                             Icons.thumb_up_alt_outlined,
-//                                             size: 18,
-//                                           ),
-//                                           SizedBox(
-//                                             width: 4,
-//                                           ),
-//                                           Text('0'),
-//                                         ],
-//                                       ),
-//                                     )
-//                                   ],
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                           Divider(
-//                             color: Colors.grey[700],
-//                             height: 30,
-//                           ),
-//                         ],
-//                       ),
-//                     ),
