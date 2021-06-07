@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
@@ -9,7 +10,8 @@ class InOrganizationPage extends StatefulWidget {
   _InOrganizationPageState createState() => _InOrganizationPageState();
 }
 
-class _InOrganizationPageState extends State<InOrganizationPage> {
+class _InOrganizationPageState extends State<InOrganizationPage>
+    with SingleTickerProviderStateMixin {
   late GoogleMapController mapController;
   Completer<GoogleMapController> _controller = Completer();
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -29,19 +31,68 @@ class _InOrganizationPageState extends State<InOrganizationPage> {
     };
   }
 
-  // static final LatLng _kMapCenter = LatLng(50.2766838, 57.2120402);
+  double height = 0;
 
-  // static final CameraPosition _kInitialPosition =
-  //     CameraPosition(target: _kMapCenter, zoom: 11.0, tilt: 0, bearing: 0);
+  late TabController tabController;
+  @override
+  void initState() {
+    tabController = new TabController(length: 2, vsync: this);
+    super.initState();
+  }
 
-  // late GoogleMapController _controller;
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
-  // Future<void> onMapCreated(GoogleMapController controller) async {
-  //   _controller = controller;
-  //   String value = await DefaultAssetBundle.of(context)
-  //       .loadString('lib/assets/map_style.json');
-  //   _controller.setMapStyle(value);
-  // }
+  TabBar _getTabBar() {
+    return TabBar(
+      onTap: (index) {
+        if (index == 1) {
+          setState(() {
+            height = 493;
+          });
+        } else if (index == 2) {
+          setState(() {
+            height = 300;
+          });
+        }
+      },
+      // unselectedLabelColor: Colors.black,
+      unselectedLabelColor: Colors.black,
+      labelColor: Colors.orange[900],
+      unselectedLabelStyle: TextStyle(
+        fontSize: 20.0,
+      ),
+      labelStyle: TextStyle(
+        fontSize: 20.0,
+      ),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(
+          width: 3.0,
+          color: Colors.orange.shade900,
+        ),
+        insets: EdgeInsets.symmetric(horizontal: 20.0),
+      ),
+      tabs: <Widget>[
+        Tab(
+          text: 'Инфо',
+        ),
+        Tab(
+          text: 'Отзывы',
+        ),
+      ],
+      controller: tabController,
+    );
+  }
+
+  TabBarView _getTabBarView(tabs) {
+    return TabBarView(
+      children: tabs,
+      controller: tabController,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,35 +212,241 @@ class _InOrganizationPageState extends State<InOrganizationPage> {
             ),
           ),
           Container(
-            width: screenWidth,
-            height: 100,
-            color: Colors.grey[350],
-            child: Center(
-              child: TabBar(
-                indicatorColor: Colors.white,
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 4,
-                    color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  padding: EdgeInsets.only(
+                    left: 50,
+                    right: 50,
                   ),
+                  child: _getTabBar(),
                 ),
-                tabs: [
-                  Tab(
-                    child: Text(
-                      'Актуальные',
-                      style: TextStyle(fontSize: 22),
-                    ),
+                Container(
+                  width: screenWidth,
+                  height: height,
+                  // height: screenHeight,
+                  // color: Colors.teal,
+                  child: _getTabBarView(
+                    <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(18, 12, 18, 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ихсанова 48',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              'Уральск',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                            Text(
+                              'Ежедневно с 9:00 - 20:00',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      '+7-777-977-36-36',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.call,
+                                    color: Colors.grey[600],
+                                    size: 25,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Компания в социальных сетях',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RawMaterialButton(
+                                          onPressed: () {},
+                                          elevation: 2.0,
+                                          fillColor: Colors.blue,
+                                          child: Image(
+                                            image: AssetImage(
+                                              'lib/images/instagram.png',
+                                            ),
+                                            width: 28,
+                                            height: 28,
+                                          ),
+                                          padding: EdgeInsets.all(15.0),
+                                          shape: CircleBorder(),
+                                        ),
+                                        RawMaterialButton(
+                                          onPressed: () {},
+                                          elevation: 2.0,
+                                          fillColor: Colors.grey[350],
+                                          child: Image(
+                                            image: AssetImage(
+                                              'lib/images/facebook.png',
+                                            ),
+                                            width: 28,
+                                            height: 28,
+                                          ),
+                                          padding: EdgeInsets.all(15.0),
+                                          shape: CircleBorder(),
+                                        ),
+                                        RawMaterialButton(
+                                          onPressed: () {},
+                                          elevation: 2.0,
+                                          fillColor: Colors.grey[350],
+                                          child: Image(
+                                            image: AssetImage(
+                                              'lib/images/vk.png',
+                                            ),
+                                            width: 28,
+                                            height: 28,
+                                          ),
+                                          padding: EdgeInsets.all(15.0),
+                                          shape: CircleBorder(),
+                                        ),
+                                        RawMaterialButton(
+                                          onPressed: () {},
+                                          elevation: 2.0,
+                                          fillColor: Colors.grey[350],
+                                          child: Image(
+                                            image: AssetImage(
+                                              'lib/images/whatsapp.png',
+                                            ),
+                                            width: 28,
+                                            height: 28,
+                                          ),
+                                          padding: EdgeInsets.all(15.0),
+                                          shape: CircleBorder(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Container(
+                                      height: 45,
+                                      width: 130,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        elevation: 2,
+                                        child: Center(
+                                          child: Text(
+                                            'Торговля',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  width: 0.6,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(14, 10, 14, 10),
+                                  child: Center(
+                                    child: Text(
+                                      'Добавить организацию',
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey[700],
+                              height: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.settings),
+                    ],
                   ),
-                  Tab(
-                    child: Text(
-                      'Прошедшие',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
-          )
+          ),
         ],
       ),
     );

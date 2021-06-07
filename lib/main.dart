@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CatalogPage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: new ThemeData(
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
     );
@@ -19,7 +21,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
